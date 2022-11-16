@@ -1,0 +1,59 @@
+<nav class="navbar navbar-light bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-light">Admin</a>
+      <a href="/admin/createUser"  class="btn btn-success">Create</a> 
+    <form class="d-flex ">
+       <a href="/logout" class="btn btn-success">logOut</a> 
+    </form>
+  </div>
+</nav>
+<div class=" mx-auto border shadow-lg container mt-5">
+  {{!-- <a href="/logout" class="btn btn-success">logOut</a> --}}
+<table id="table" class="display ">
+    <thead>
+        <tr>
+            <th>user name</th>
+            <th>email</th>
+            <th>edit/delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each user}}
+        <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>
+
+             <a href="/admin/user/{{this._id}}" class="btn btn-success">edit</a>
+            <button class="btn btn-danger" onclick="deleteUser('{{this._id}}')" >delete</button>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script>
+
+$(document).ready(function () {
+    $('#table').DataTable();
+});
+
+const deleteUser =async(value)=>{
+    try{
+
+    const res =await axios.delete(`/admin/user/${value}`,{
+        Headers:{
+
+        },
+        data:{
+
+        }
+    }).then(e=>{
+    })
+    window.location.reload(true);
+    console.log(res)
+    }catch(err){
+        console.log(err)
+    }
+}
+</script>
+</div>
